@@ -3,17 +3,18 @@ import React from 'react';
 // import moment from 'moment';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
+import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faQuestion, faUserDoctor, faPencil, faHeart, faSearch, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faQuestion, faUserDoctor, faPencil, faHeart, faSearch, faBell, faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faNewspaper, faEnvelope, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 export default function Example(props) {
     const data = [];
-
+    const phone_ele = <FontAwesomeIcon icon={faPhone} />;
     const phone = (str) => {
         // console.log("here");
         if (!str || str.length !== 10) return '';
-        return (<i class="fa fa-phone" ></i> + ' ' + str.substr(0, 3) + '-' + str.substr(3, 3) + '-' + str.substr(6));
+        return (<div><p>{phone_ele}{' ' + str.substr(0, 3) + '-' + str.substr(3, 3) + '-' + str.substr(6)}</p></div>);
     };
 
     const columns = [
@@ -38,7 +39,7 @@ export default function Example(props) {
                                 <FontAwesomeIcon icon={faQuestion} />
                         }
                     </div>
-                    <div>
+                    <div className='phone-list'>
                         {phone(text.day_phone)}
                         {phone(text.ev_phone)}
                         {phone(text.mob_phone)}
@@ -51,9 +52,9 @@ export default function Example(props) {
                     <div className="user-actions">
                         <a href="activityReport?id={text.id}&amp;days=7">
                             <FontAwesomeIcon icon={faNewspaper} />
-                            <FontAwesomeIcon icon={faUserDoctor} />
                         </a>
                         <a href="agentProxy?userId={text.id}">
+                            <FontAwesomeIcon icon={faUserDoctor} />
                             {/* <FontAwesomeIcon icon={faUserMinus} /> */}
                         </a>
                         <a href="editCustomer?act=mod&amp;id={text.id}">
@@ -89,12 +90,19 @@ export default function Example(props) {
         {
             title: 'others',
             dataIndex: 'otherF',
+            width: '15%',
             sorter: (a, b) => new Date(a.otherF) - new Date(b.otherF),
             render: text => (
-                <div>
-                    <FontAwesomeIcon icon={faHeart} /><span>{text.countFavorites}</span>
-                    <FontAwesomeIcon icon={faSearch} /><span>{text.countSearches}</span>
-                    <FontAwesomeIcon icon={faBell} /><span>{text.notificationcount}</span>
+                <div className='table-otherFeild'>
+                    <a href="editCustomerAction?act=del&amp;id={text.id}">
+                        <FontAwesomeIcon icon={faHeart} />&nbsp;<span>{text.countFavorites}</span>
+                    </a>
+                    <a href="editCustomerAction?act=del&amp;id={text.id}">
+                        <FontAwesomeIcon icon={faSearch} />&nbsp;<span>{text.countSearches}</span>
+                    </a>
+                    <a href="editCustomerAction?act=del&amp;id={text.id}">
+                        <FontAwesomeIcon icon={faBell} />&nbsp;<span>{text.notificationcount}</span>
+                    </a>
                 </div>
             )
         }

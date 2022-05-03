@@ -1,0 +1,17 @@
+.table-otherFeild,
+.user-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-actions {
+    max-width: 40%;
+}
+
+.phone-list {
+    /* display: flex; */
+}
+
+.phone-list div {
+    flex-wrap: nowrap;
+}
