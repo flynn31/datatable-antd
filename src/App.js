@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import Hometable from "./Component/home-table";
-import { DeveloperBoard } from '@mui/icons-material';
+// import { DeveloperBoard } from '@mui/icons-material';
 
 const sample_data = [
   {
@@ -18,7 +18,10 @@ const sample_data = [
     active: null,
     day_phone: "12312312123",
     ev_phone: "456456456456456",
-    mob_phone: "890890890890"
+    mob_phone: "890890890890",
+    countFavorites: 19,
+    countSearches: 202,
+    notificationcount: 5
   },
   {
     key: '2',
@@ -34,7 +37,10 @@ const sample_data = [
     active: null,
     day_phone: "12312312123",
     ev_phone: "456456456456456",
-    mob_phone: "890890890890"
+    mob_phone: "890890890890",
+    countFavorites: 1,
+    countSearches: 2,
+    notificationcount: 53
   },
   {
     key: '3',
@@ -50,7 +56,10 @@ const sample_data = [
     active: null,
     day_phone: "12312312123",
     ev_phone: "456456456456456",
-    mob_phone: "890890890890"
+    mob_phone: "890890890890",
+    countFavorites: 5,
+    countSearches: 100,
+    notificationcount: 99
   },
   {
     key: '4',
@@ -66,7 +75,10 @@ const sample_data = [
     active: null,
     day_phone: "12312312123",
     ev_phone: "456456456456456",
-    mob_phone: "890890890890"
+    mob_phone: "890890890890",
+    countFavorites: 37,
+    countSearches: 532,
+    notificationcount: 61
   }
 ];
 

@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import moment from 'moment';
+// import React, { useState } from 'react';
+import React from 'react';
+// import moment from 'moment';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faQuestion, faUserDoctor, faPencil, faHeart, faSearch, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faNewspaper, faEnvelope, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 export default function Example(props) {
     const data = [];
@@ -29,8 +33,9 @@ export default function Example(props) {
                         <span>{text.emailaddress}</span>
                         {
                             text.active === 1 ?
-                                <i className="fa fa-check" title="Email Confirmed"></i> :
-                                <i className="fa fa-question" title="Email Not Confirmed"></i>
+                                // <i icon="fa fa-check" title="Email Confirmed">a</i> :
+                                <FontAwesomeIcon icon={faCheck} /> :
+                                <FontAwesomeIcon icon={faQuestion} />
                         }
                     </div>
                     <div>
@@ -40,26 +45,27 @@ export default function Example(props) {
                     </div >
                     <div>
                         {text.emailerror != null ?
-                            <font color="red"><i className="fa fa-hand-stop-o"></i> + {text.emailerror} + </font> :
+                            <font color="red"><FontAwesomeIcon icon={faCheck} /> + {text.emailerror} + </font> :
                             ''}
                     </div >
                     <div className="user-actions">
                         <a href="activityReport?id={text.id}&amp;days=7">
-                            <i className="fa fa-newspaper-o" title="View User Activity"></i>
+                            <FontAwesomeIcon icon={faNewspaper} />
+                            <FontAwesomeIcon icon={faUserDoctor} />
                         </a>
                         <a href="agentProxy?userId={text.id}">
-                            <i className="fa fa-user-md" title="Agent Proxy"></i>
+                            {/* <FontAwesomeIcon icon={faUserMinus} /> */}
                         </a>
                         <a href="editCustomer?act=mod&amp;id={text.id}">
-                            <i className="fa fa-pencil" title="Edit"></i>
+                            <FontAwesomeIcon icon={faPencil} />
                         </a>
                         <a href="editCustomer?act=reconfirm&amp;id={text.id}">
-                            <i className="fa fa-envelope-o" title="Re-Confirm Email"></i>
+                            <FontAwesomeIcon icon={faEnvelope} />
                         </a>
                         <a href="editCustomerAction?act=del&amp;id={text.id}"
                         // onClick="return confirm('Are you sure you want to delete: {text.firstname + ' ' + text.lastname}');"
                         >
-                            <i className="fa fa-trash-o" title="Delete Customer"></i>
+                            <FontAwesomeIcon icon={faTrashCan} />
                         </a>
                     </div>
                 </div >
@@ -79,6 +85,18 @@ export default function Example(props) {
             title: 'registered',
             dataIndex: 'regiF',
             sorter: (a, b) => new Date(a.regiF) - new Date(b.regiF)
+        },
+        {
+            title: 'others',
+            dataIndex: 'otherF',
+            sorter: (a, b) => new Date(a.otherF) - new Date(b.otherF),
+            render: text => (
+                <div>
+                    <FontAwesomeIcon icon={faHeart} /><span>{text.countFavorites}</span>
+                    <FontAwesomeIcon icon={faSearch} /><span>{text.countSearches}</span>
+                    <FontAwesomeIcon icon={faBell} /><span>{text.notificationcount}</span>
+                </div>
+            )
         }
     ];
 
@@ -90,6 +108,7 @@ export default function Example(props) {
                 visitF: item.visitF,
                 alertF: item.alertF,
                 regiF: item.regiF,
+                otherF: item
             })
         );
     })
