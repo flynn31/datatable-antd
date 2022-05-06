@@ -1,7 +1,7 @@
-// import React, { useState } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import moment from 'moment';
 import { Table } from 'antd';
+import axios from "axios";
 import 'antd/dist/antd.css';
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,6 +9,23 @@ import { faCheck, faQuestion, faUserDoctor, faPencil, faHeart, faSearch, faBell,
 import { faNewspaper, faEnvelope, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 export default function Example(props) {
+    const [loading, setLoading] = useState(true);
+    const [database, setDatabase] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const { data: response } = await axios.get("https://sun-excessive-pilot.glitch.me/data");
+                setDatabase(response);
+            } catch (err) {
+                console.log(err);
+            }
+            setLoading(false);
+        }
+        fetchData();
+    }, []);
+
     const data = [];
     const phone_ele = <FontAwesomeIcon icon={faPhone} />;
     const phone = (str) => {
@@ -94,21 +111,22 @@ export default function Example(props) {
             sorter: (a, b) => new Date(a.otherF) - new Date(b.otherF),
             render: text => (
                 <div className='table-otherFeild'>
-                    <a href="editCustomerAction?act=del&amp;id={text.id}">
+                    {/* <a href="editCustomerAction?act=del&amp;id={text.id}">
                         <FontAwesomeIcon icon={faHeart} />&nbsp;<span>{text.countFavorites}</span>
                     </a>
                     <a href="editCustomerAction?act=del&amp;id={text.id}">
                         <FontAwesomeIcon icon={faSearch} />&nbsp;<span>{text.countSearches}</span>
-                    </a>
+                    </a> */}
                     <a href="editCustomerAction?act=del&amp;id={text.id}">
-                        <FontAwesomeIcon icon={faBell} />&nbsp;<span>{text.notificationcount}</span>
+                        <FontAwesomeIcon icon={faBell} />&nbsp;<span>{text}</span>
                     </a>
                 </div>
             )
         }
     ];
 
-    props.data.map(function (item, i) {
+    console.log(database.length);
+    database.map(function (item, i) {
         return (
             data.push({
                 key: i + 1,
@@ -116,12 +134,13 @@ export default function Example(props) {
                 visitF: item.visitF,
                 alertF: item.alertF,
                 regiF: item.regiF,
-                otherF: item
+                otherF: item.notificationcount
             })
         );
     })
 
+    data.pop();
     return (
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} loading={loading} dataSource={data} />
     );
 }
